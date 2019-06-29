@@ -1,20 +1,60 @@
-// BullCowGame.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+#include <string>
 
+using namespace std;
+
+void PrintIntro();
+void PlayGame();
+string GetGuess();
+bool AskToPlayAgain();
+
+// Entry point for our application
 int main()
 {
-    std::cout << "Hello World!\n";
+	bool playAgain = true;
+	PrintIntro();
+	while (playAgain) {
+		PlayGame();
+		playAgain = AskToPlayAgain();
+	}
+	
+	return 0; // exit the application
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+void PlayGame()
+{
+	// loop for the number of turns asking for guesses
+	constexpr int NUMBER_OF_TURNS = 5;
+	for (int i = 0; i < 5; i++) {
+		string Guess = GetGuess();
+		// Repeat the guess back to home
+		cout << "You guess was: " << Guess << endl;
+		cout << endl;
+	}
+}
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+
+void PrintIntro() {
+	// Introduce the game
+	constexpr int WORD_LENGTH = 5;
+	cout << "Welcome to Bulls and Cows, a fun word game.\n";
+	cout << "Can you guess the " << WORD_LENGTH;
+	cout << " letter isogram I'm thinking of?\n";
+	cout << endl;
+	return;
+}
+
+string GetGuess() {
+	// Get a guess from the player
+	string Guess = "";
+	cout << "Enter your guess: ";
+	getline(cin, Guess);
+	return Guess;
+}
+
+bool AskToPlayAgain() {
+	cout << "Play again? (Y/N): " << endl;
+	string playAgain = "";
+	getline(cin, playAgain);
+	return playAgain[0] == 'Y' || playAgain[0] == 'y';
+}
